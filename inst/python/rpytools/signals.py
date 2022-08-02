@@ -34,15 +34,10 @@ from signal import signal, SIGINT
 _callback = None
 
 def _signal_handler(sig, frame):
-  
+
   # Ask R whether interrupts are pending.
   global _callback
-  pending = _callback(False)
-  
-  # If interrupts are pending, now's our chance to handle it.
-  # Now that Python is getting a chance to handle interrupts,
-  # we can tell R to unset the interrupts pending flag.
-  if pending:
+  if pending := _callback(False):
     _callback(True)
     raise KeyboardInterrupt
   

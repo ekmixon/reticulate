@@ -95,25 +95,23 @@ def end_capture(capture_stdout, capture_stderr):
     pass
   
 def collect_output():
-  
+
   global _stdout
   global _stderr
-  
+
   # collect outputs into array
   outputs = []
   if _stdout is not None:
-    stdout = _capture_stdout.getvalue()
-    if stdout:
+    if stdout := _capture_stdout.getvalue():
       outputs.append(stdout)
-      
+
   if _stderr is not None:
-    stderr = _capture_stderr.getvalue()
-    if stderr:
+    if stderr := _capture_stderr.getvalue():
       outputs.append(stderr)
-    
+
   # ensure trailing newline
   outputs.append('')
-  
+
   # join outputs
   return '\n'.join(outputs)
   
@@ -131,10 +129,7 @@ class OutputRemap(object):
     return self.tty
     
   def __getattr__(self, attr): 
-    if (self.target): 
-      return getattr(self.target, attr)
-    else:
-      return 0
+    return getattr(self.target, attr) if self.target else 0
 
   def close(self):
     return None

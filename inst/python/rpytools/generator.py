@@ -23,7 +23,7 @@ class RGenerator(object):
     return self.next()
 
   def next(self):
-    
+
     # call iterator
     if (isinstance(threading.current_thread(), threading._MainThread)):
       res = self.r_function()
@@ -34,11 +34,11 @@ class RGenerator(object):
         None
       )
       res = result.get()
-      
+
     # check for special 'completed' return value
     if (res == self.completed):
       raise StopIteration()
-      
+
     # return result
     return res
 

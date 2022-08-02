@@ -33,15 +33,15 @@ pathsep = ";" if os.name == "nt" else ":"
 
 # Read default configuration values
 config = {
-  "Architecture"     : platform.architecture()[0],
-  "Version"          : str(sys.version).replace("\n", " "),
-  "VersionNumber"    : str(sys.version_info[0]) + "." + str(sys.version_info[1]),
-  "Prefix"           : getattr(sys, "prefix", ""),
-  "ExecPrefix"       : getattr(sys, "exec_prefix", ""),
-  "BaseExecPrefix"   : getattr(sys, "base_exec_prefix", ""),
-  "PythonPath"       : pathsep.join(sys.path[1:]),
-  "LIBPL"            : sysconfig.get_config_var("LIBPL"),
-  "LIBDIR"           : sysconfig.get_config_var("LIBDIR")
+    "Architecture": platform.architecture()[0],
+    "Version": str(sys.version).replace("\n", " "),
+    "VersionNumber": f"{str(sys.version_info[0])}.{str(sys.version_info[1])}",
+    "Prefix": getattr(sys, "prefix", ""),
+    "ExecPrefix": getattr(sys, "exec_prefix", ""),
+    "BaseExecPrefix": getattr(sys, "base_exec_prefix", ""),
+    "PythonPath": pathsep.join(sys.path[1:]),
+    "LIBPL": sysconfig.get_config_var("LIBPL"),
+    "LIBDIR": sysconfig.get_config_var("LIBDIR"),
 }
 
 # Read numpy configuration (if available)
@@ -62,6 +62,6 @@ except:
   pass
 
 # Write configuration to stdout
-lines = [str(key) + ": " + str(val) for (key, val) in config.items()]
+lines = [f"{str(key)}: {str(val)}" for (key, val) in config.items()]
 text = "\n".join(lines)
 sys.stdout.write(text)
